@@ -6,8 +6,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class FilmeService {
 
-    private FilmeRepository filmeRepository;
-
+    private final FilmeRepository filmeRepository;
     public FilmeService(FilmeRepository filmeRepository) {
         this.filmeRepository = filmeRepository;
     }

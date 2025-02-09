@@ -6,8 +6,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class StreamingService {
 
-    private StreamingRepository streamingRepository;
-
+    private final StreamingRepository streamingRepository;
     public StreamingService(StreamingRepository streamingRepository) {
         this.streamingRepository = streamingRepository;
     }
