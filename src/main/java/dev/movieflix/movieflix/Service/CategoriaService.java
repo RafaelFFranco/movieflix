@@ -1,7 +1,11 @@
 package dev.movieflix.movieflix.Service;
 
+import dev.movieflix.movieflix.Model.CategoriaModel;
 import dev.movieflix.movieflix.Repository.CategoriaRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CategoriaService {
@@ -12,5 +16,24 @@ public class CategoriaService {
     }
 
 
+    public List<CategoriaModel> listarCategorias() {
+        return categoriaRepository.findAll();
+    }
+
+    public CategoriaModel buscarCategoriaPorId(Long id) {
+        Optional<CategoriaModel> categoria = categoriaRepository.findById(id);
+        return categoria.orElse(null);
+    }
+
+    public void deleteCategoria(Long id) {
+        Optional<CategoriaModel> categoria = categoriaRepository.findById(id);
+        if (categoria.isPresent()) {
+            categoriaRepository.delete(categoria.get());
+        }
+    }
+
+    public CategoriaModel addCategoria(CategoriaModel categoria) {
+        return categoriaRepository.save(categoria);
+    }
 
 }
