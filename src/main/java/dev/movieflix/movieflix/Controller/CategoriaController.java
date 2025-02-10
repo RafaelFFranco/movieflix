@@ -1,6 +1,9 @@
 package dev.movieflix.movieflix.Controller;
 
+import dev.movieflix.movieflix.Mapper.CategoriaMapper;
 import dev.movieflix.movieflix.Model.CategoriaModel;
+import dev.movieflix.movieflix.Request.CategoriaRequest;
+import dev.movieflix.movieflix.Response.CategoriaResponse;
 import dev.movieflix.movieflix.Service.CategoriaService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,25 +21,40 @@ public class CategoriaController {
     }
 
     @GetMapping
-    public ResponseEntity<List<CategoriaModel>>  listarCategorias(){
+    public ResponseEntity<List<CategoriaResponse>>  listarCategorias(){
         List<CategoriaModel> categorias = categoriaService.listarCategorias();
-        return ResponseEntity.ok(categorias);
+
+        List<CategoriaResponse> categoriaResponses =
+                categorias.stream()
+                .map(categoria -> CategoriaMapper.toCategoriaResponse(categoria))
+                .toList();
+
+        return ResponseEntity.ok(categoriaResponses);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<?>  buscarCategoriaPorId(@PathVariable Long id){
-        CategoriaModel categoriaPorId = categoriaService.buscarCategoriaPorId(id);
-        if(categoriaPorId != null){
-            return ResponseEntity.ok(categoriaPorId);
+
+        CategoriaModel categoriaModel = categoriaService.buscarCategoriaPorId(id);
+        CategoriaResponse categoriaResponse = CategoriaMapper.toCategoriaResponse(categoriaModel);
+
+        if(categoriaResponse != null){
+            return ResponseEntity.ok(categoriaResponse);
         }else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Categoria com id: " +id+ " não encontrado");
         }
     }
 
     @PostMapping("/add")
-    public ResponseEntity<CategoriaModel> addCategoria(@RequestBody CategoriaModel categoria){
-        CategoriaModel categoriaModel = categoriaService.addCategoria(categoria);
-        return ResponseEntity.status(HttpStatus.CREATED).body(categoriaModel);
+    public ResponseEntity<CategoriaResponse> addCategoria(@RequestBody CategoriaRequest categoria){
+
+        CategoriaModel categoriaModel = CategoriaMapper.toCategoria(categoria);
+
+        CategoriaModel categoriaModelSalvo = categoriaService.addCategoria(categoriaModel);
+
+        CategoriaResponse categoriaResponse = CategoriaMapper.toCategoriaResponse(categoriaModelSalvo);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(categoriaResponse);
     }
 
     @DeleteMapping("/delete/{id}")
