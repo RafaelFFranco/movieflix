@@ -20,5 +20,4 @@ public class FilmeModel {
     private String titulo;
 
     private String descricao;
-
 }
