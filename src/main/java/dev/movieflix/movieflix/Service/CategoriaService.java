@@ -21,8 +21,8 @@ public class CategoriaService {
     }
 
     public CategoriaModel buscarCategoriaPorId(Long id) {
-        Optional<CategoriaModel> categoria = categoriaRepository.findById(id);
-        return categoria.orElse(null);
+        Optional<CategoriaModel> optionalCategoria = categoriaRepository.findById(id);
+        return optionalCategoria.orElse(null);
     }
 
     public void deleteCategoria(Long id) {
