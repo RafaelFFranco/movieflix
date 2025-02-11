@@ -12,9 +12,9 @@ public class StreamingMapper {
     //recebe StreamingRequest e transforma em StreamingModel
     public static StreamingModel toStreamingModel(StreamingRequest streamingModel) {
        return StreamingModel
-                .builder()
-                .nome(streamingModel.nome())
-                .build();
+               .builder()
+               .nome(streamingModel.nome())
+               .build();
     }
 
     public static StreamingResponse toStreamingResponse(StreamingModel streamingModel) {
