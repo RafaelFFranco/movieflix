@@ -4,7 +4,10 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.UpdateTimestamp;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -23,6 +26,22 @@ public class FilmeModel {
 
     private String descricao;
 
+    @Column(name = "data_lancamento")
+    private LocalDate dataLancamento;
+
+    private double nota;
+
+    //atualiza data de cadastro dos filmes automaticamente
+    @Column(name = "data_criacao")
+    @UpdateTimestamp
+    private LocalDateTime dataCriacao;
+
+    //atualiza data de atualização dos filmes automaticamente
+    @Column(name = "data_atualizacao")
+    @UpdateTimestamp
+    private LocalDateTime dataAtualizacao;
+
+    //cria a tabela de relacionamento N para N e faz referencia para o id de filme e o id de categoria
     @ManyToMany
     @JoinTable(name = "filme_categoria",
             joinColumns = @JoinColumn(name = "filme_id"),
@@ -30,6 +49,7 @@ public class FilmeModel {
     )
     private List<CategoriaModel> categorias;
 
+    //cria a tabela de relacionamento N para N e faz referencia para o id de filme e o id de streaming
     @ManyToMany
     @JoinTable(name = "filme_streaming",
             joinColumns = @JoinColumn(name = "filme_id"),
