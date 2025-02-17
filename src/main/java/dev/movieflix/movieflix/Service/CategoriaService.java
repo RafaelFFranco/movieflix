@@ -28,7 +28,7 @@ public class CategoriaService {
     public void deleteCategoria(Long id) {
         Optional<CategoriaModel> categoria = categoriaRepository.findById(id);
         if (categoria.isPresent()) {
-            categoriaRepository.delete(categoria.get());
+            categoriaRepository.deleteById(id);
         }
     }
 
