@@ -44,6 +44,7 @@ public class FilmeController {
         return ResponseEntity.ok(filmeService.salvarFilme(filme));
     }
 
+    //deleta filme existente
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deletarFilme(@PathVariable Long id) {
         Optional<FilmeResponse> filme = filmeService.buscarFilme(id);
