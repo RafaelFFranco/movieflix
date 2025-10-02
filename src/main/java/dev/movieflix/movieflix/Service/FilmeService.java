@@ -18,14 +18,26 @@ public class FilmeService {
         this.filmeRepository = filmeRepository;
     }
 
+    //  Alerta de performance: Potencial problema N+1 e sobrecarga de memória
+    // Este método pode ser lento com muitos filmes devido aos relacionamentos ManyToMany.
+    // Problemas identificados:
+    // • Carregamento de todos os registros sem paginação
+    // • Possível problema N+1 com relacionamentos lazy
+    // • Alto consumo de memória com grandes datasets
+    //  Sugestão: Implementar paginação e usar @Query com JOIN FETCH ou DTOs de projeção
+  
     //Listar filmes
     public List<FilmeResponse> listarFilmes(){
         List<FilmeModel> filmes = filmeRepository.findAll();
+        //  Boa prática Uso adequado de Streams API
+    
+  
         return filmes.stream()
                 .map(filmeModel -> FilmeMapper.toFilmeResponse(filmeModel))
                 .toList();
     }
 
+    // Bom uso de Optional, melhor que retornar null 
     //Buscar por Id
     public Optional<FilmeResponse> buscarFilme(Long id){
         return filmeRepository.findById(id).map(filmeModel -> FilmeMapper.toFilmeResponse(filmeModel));

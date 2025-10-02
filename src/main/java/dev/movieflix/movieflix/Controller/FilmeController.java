@@ -15,6 +15,7 @@ import java.util.Optional;
 @RequestMapping("/movieflix/filmes")
 public class FilmeController {
 
+    //  Injeção por construtor é uma ótima prática
     private final FilmeService filmeService;
 
     public FilmeController(FilmeService filmeService) {
@@ -31,6 +32,7 @@ public class FilmeController {
     @GetMapping("/{id}")
     public ResponseEntity<?> buscarFilme(@PathVariable Long id){
         Optional<FilmeResponse> filme = filmeService.buscarFilme(id);
+        // Essa lógica poderia ser um método utility: toResponseEntity(Optional<T>)
         if(filme.isPresent()){
             return ResponseEntity.ok(filme.get());
         }else {

@@ -11,6 +11,8 @@ import lombok.experimental.UtilityClass;
 
 import java.util.List;
 
+// Mapper mais sofisticado com relacionamentos
+
 @UtilityClass
 public class FilmeMapper {
     public static FilmeModel toFilmeModel(FilmeRequest filmeRequest) {
@@ -20,6 +22,7 @@ public class FilmeMapper {
                 .map(categoriaId -> CategoriaModel.builder().id(categoriaId).build())
                 .toList();
 
+        // Mesma lógica para streamings
         //recebo a lista de long dos streamings e transformo em StreamingModel para criar o FilmeModel que recebe uma lista de StreamingModel
         List<StreamingModel> streamings = filmeRequest.streamings().stream()
                 .map(streamingId -> StreamingModel.builder().id(streamingId).build())

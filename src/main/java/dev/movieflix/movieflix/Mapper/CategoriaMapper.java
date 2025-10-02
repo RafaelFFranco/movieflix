@@ -5,6 +5,8 @@ import dev.movieflix.movieflix.Request.CategoriaRequest;
 import dev.movieflix.movieflix.Response.CategoriaResponse;
 import lombok.experimental.UtilityClass;
 
+
+// Separação clara entre camadas 
 @UtilityClass
 public class CategoriaMapper {
 

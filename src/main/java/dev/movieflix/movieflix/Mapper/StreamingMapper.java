@@ -24,4 +24,7 @@ public class StreamingMapper {
                 .nome(streamingModel.getNome())
                 .build();
     }
+    
+    // Considerar adicionar null checks ou usar Optional
+    // Comentários explicando o que cada método faz são úteis
 }

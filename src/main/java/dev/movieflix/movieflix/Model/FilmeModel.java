@@ -11,6 +11,14 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
+
+//  Modelagem de relacionamentos bem estruturada
+// Os relacionamentos Many-to-Many estão corretamente implementados seguindo boas práticas JPA.
+// Benefícios da implementação atual:
+// • Tabelas de junção explicitamente nomeadas
+// • Colunas de FK bem definidas
+// • Relacionamentos bidirecionais quando necessário
+//  Consideração: Avaliar uso de FetchType.LAZY para otimizar performance
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -51,6 +59,8 @@ public class FilmeModel {
     )
     private List<CategoriaModel> categorias;
 
+
+    // Relacionamentos simétricos bem modelados
     //cria a tabela de relacionamento N para N e faz referencia para o id de filme e o id de streaming
     @ManyToMany
     @JoinTable(name = "filme_streaming",
